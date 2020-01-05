@@ -1,0 +1,10 @@
+<h1>
+  <%= @accounting_code %>
+</h1>
+<hr>
+<%= link_to edit_accounting_code_path, class: "btn btn-info" do %>
+  Edit
+<% end %>
+<%= link_to accounting_code_path(@accounting_code.id), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } do %>
+  Delete
+<% end %>

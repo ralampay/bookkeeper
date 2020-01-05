@@ -1,0 +1,15 @@
+<h1>
+  Accounting Codes
+</h1>
+
+<%= link_to new_accounting_code_path, class: 'btn btn-primary' do %>
+  New Accounting Code
+<% end %>
+
+<% if @accounting_codes.size == 0 %>
+  <p>
+    No accounting codes found.
+  </p>
+<% else %>
+  <%= render partial: "list" %>
+<% end %>

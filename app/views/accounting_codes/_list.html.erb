@@ -1,0 +1,38 @@
+<table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th></th>
+      <th>
+        Category
+      </th>
+      <th>
+        Code
+      </th>
+      <th>
+        Name
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @accounting_codes.each_with_index do |o, i| %>
+      <tr>
+        <td class="text-center">
+          <%= link_to accounting_code_path(o.id) do %>
+            <b>
+              <%= "#{i + 1}" %>
+            </b>
+          <% end %>
+        </td>
+        <td>
+          <%= o.category %>
+        </td>
+        <td>
+          <%= o.code %>
+        </td>
+        <td>
+          <%= o.name %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,12 @@
+<%= simple_form_for @accounting_code do |f| %>
+  <%= f.input :name, input_html: { class: "form-control" } %>
+  <%= f.input :code, input_html: { class: "form-control" } %>
+  <%= f.input :category, as: :select, collection: AccountingCode::CATEGORIES, input_html: { class: "form-control" } %>
+  <hr>
+  <button type="submit" class="btn btn-primary">
+    Save
+  </button>
+  <%= link_to accounting_codes_path, class: "btn btn-danger" do %>
+    Cancel 
+  <% end %>
+<% end %>
