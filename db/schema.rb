@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_05_075406) do
+ActiveRecord::Schema.define(version: 2020_01_05_154056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -24,4 +24,27 @@ ActiveRecord::Schema.define(version: 2020_01_05_075406) do
     t.string "category"
   end
 
+  create_table "accounting_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.date "date_prepared"
+    t.date "date_posted"
+    t.text "particular"
+    t.string "status"
+    t.string "book"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "journal_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "post_type"
+    t.decimal "amount"
+    t.uuid "accounting_code_id", null: false
+    t.uuid "accounting_entry_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["accounting_code_id"], name: "index_journal_entries_on_accounting_code_id"
+    t.index ["accounting_entry_id"], name: "index_journal_entries_on_accounting_entry_id"
+  end
+
+  add_foreign_key "journal_entries", "accounting_codes"
+  add_foreign_key "journal_entries", "accounting_entries"
 end

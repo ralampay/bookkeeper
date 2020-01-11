@@ -3,4 +3,13 @@ Rails.application.routes.draw do
   root to: "pages#index"
 
   resources :accounting_codes
+  resources :accounting_entries, only: [:index, :show]
+
+  namespace :api do
+    namespace :v1 do
+      post "/accounting_entries", to: "accounting_entries#create"
+      post "/accounting_entries/approve", to: "accounting_entries#approve"
+      post "/accounting_entries/delete", to: "accounting_entries#delete"
+    end
+  end
 end

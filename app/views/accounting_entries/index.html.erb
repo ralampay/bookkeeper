@@ -1,0 +1,24 @@
+<h1>
+  Accounting Entries
+</h1>
+<hr>
+
+<button class="btn btn-primary" id="btn-new">
+  New Accounting Entry
+</button>
+
+<%= render partial: "list", locals: { accounting_entries: @accounting_entries } %>
+
+<%= render partial: "accounting_entries/modals/new" %>
+<%= javascript_pack_tag "accounting_entries/Index" %>
+
+
+<script type="text/javascript">
+  var authenticityToken = $('meta[name="csrf-token"]').attr( 'content' );
+
+  $(document).ready(function() {
+    Index.init({
+      authenticityToken: authenticityToken
+    })
+  });
+</script>

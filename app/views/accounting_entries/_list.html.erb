@@ -1,0 +1,44 @@
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th>
+        Status
+      </th>
+      <th>
+        Particular
+      </th>
+      <th>
+        Date Prepared
+      </th>
+      <th>
+        Date Approved
+      </th>
+      <th class="text-center">
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @accounting_entries.each do |o| %>
+      <tr>
+        <td>
+          <%= o.status %>
+        </td>
+        <td>
+          <%= o.particular %>
+        </td>
+        <td>
+          <%= o.date_prepared %>
+        </td>
+        <td>
+          <%= o.date_posted %>
+        </td>
+        <td class="text-center">
+          <%= link_to accounting_entry_path(o.id), class: "btn btn-info btn-sm" do %>
+            Show
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
