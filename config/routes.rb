@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       post "/accounting_entries", to: "accounting_entries#create"
       post "/accounting_entries/approve", to: "accounting_entries#approve"
       post "/accounting_entries/delete", to: "accounting_entries#delete"
+      post "/accounting_entries/add_journal_entry", to: "accounting_entries#add_journal_entry"
+      post "/accounting_entries/delete_journal_entry", to: "accounting_entries#delete_journal_entry"
     end
   end
 end

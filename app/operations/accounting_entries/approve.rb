@@ -9,7 +9,7 @@ module AccountingEntries
     def run
       @accounting_entry.update!(
         status: "approved",
-        date_approved: @current_date
+        date_posted: @current_date
       )
     end
   end

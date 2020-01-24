@@ -1,0 +1,60 @@
+<table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th>
+        Accounting Code
+      </th>
+      <th class="text-right">
+        Debit
+      </th>
+      <th class="text-right">
+        Credit
+      </th>
+      <% if accounting_entry.pending? %>
+        <th class="text-center">
+          Actions
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% journal_entries.select{ |o| o.post_type == "DR" }.each do |o| %>
+      <tr>
+        <td>
+          <%= o.accounting_code %>
+        </td>
+        <td class="text-right">
+          <%= number_to_currency(o.amount, unit: '') %>
+        </td>
+        <td class="text-right">
+        </td>
+        <% if accounting_entry.pending? %>
+          <td class="text-center">
+            <button class="btn btn-danger btn-sm btn-delete-journal-entry" data-journal-entry-id="<%= o.id %>" data-accounting-code="<%= o.accounting_code.name %>" data-amount="<%= o.amount %>">
+              Delete
+            </button>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+    <% journal_entries.select{ |o| o.post_type == "CR" }.each do |o| %>
+      <tr>
+        <td>
+          <%= o.accounting_code %>
+        </td>
+        <td class="text-right">
+        </td>
+        <td class="text-right">
+          <%= number_to_currency(o.amount, unit: '') %>
+        </td>
+        <% if accounting_entry.pending? %>
+          <td class="text-center">
+            <button class="btn btn-danger btn-sm btn-delete-journal-entry" data-journal-entry-id="<%= o.id %>" data-accounting-code="<%= o.accounting_code.name %>" data-amount="<%= o.amount %>">
+              Delete
+            </button>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

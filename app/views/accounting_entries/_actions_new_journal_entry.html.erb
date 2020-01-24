@@ -1,0 +1,41 @@
+<div class="card">
+  <div class="card-body">
+    <div class="message"></div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label>
+            Accounting Code:
+          </label>
+          <%= select_tag :accounting_code, options_from_collection_for_select(@accounting_codes, :id, :name), class: "form-control", id: "select-accounting-code" %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label>
+            Post Type:
+          </label>
+          <%= select_tag :post_type, options_for_select(JournalEntry::POST_TYPES), class: "form-control", id: "select-post-type" %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label>
+            Amount:
+          </label>
+          <%= number_field_tag :amount, 0.00, class: "form-control", id: "input-amount" %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label>
+            Actions:
+          </label>
+          <button class="btn btn-success btn-block" id="btn-add-journal-entry">
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
