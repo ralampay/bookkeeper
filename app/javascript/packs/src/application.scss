@@ -1,1 +1,36 @@
 @import '~bootstrap/scss/bootstrap';
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+#sidebar.active {
+  margin-left: -250px;
+}
+
+#sidebar ul.components {
+  padding: 20px 0;
+}
+
+#sidebar ul.list-unstyled {
+  list-style: none;
+}
+
+#sidebar ul li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+
+#content {
+  width: 100%;
+  padding: 20px;
+}

@@ -20,3 +20,12 @@ window.$      = $;
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+$(document).ready(function() {
+  var $btnToggleNav   = $("#btn-toggle-nav");
+  var $sidebar        = $("#sidebar");
+
+  $btnToggleNav.on("click", function() {
+    $sidebar.toggleClass("active");
+  });
+});

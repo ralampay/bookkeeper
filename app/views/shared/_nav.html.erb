@@ -1,12 +1,27 @@
-<ul>
-  <li>
-    <%= link_to accounting_codes_path do %>
-      Accounting Codes
-    <% end %>
-  </li>
-  <li>
-    <%= link_to accounting_entries_path do %>
-      Accounting Entries
-    <% end %>
-  </li>
-</ul>
+<nav id="sidebar" class="">
+  <div class="sidebar-header">
+    <h3>
+      Book Keeper
+    </h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <li>
+      <a href="#nav-operations" data-toggle="collapse" class="dropdown-toggle" aria-expanded="false">
+        Operations
+      </a>
+      <ul class="collapse list-unstyled" id="nav-operations">
+        <li>
+          <%= link_to accounting_codes_path do %>
+            Accounting Codes
+          <% end %>
+        </li>
+        <li>
+          <%= link_to accounting_entries_path do %>
+            Accounting Entries
+          <% end %>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
