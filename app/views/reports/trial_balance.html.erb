@@ -1,0 +1,44 @@
+<h1>
+  Trial Balance
+</h1>
+
+<div class="row">
+  <div class="col-md-10">
+    <div class="form-group">
+      <label>
+        AS OF:
+      </label>
+      <input type="date" id="input-as-of" class="form-control" value="<%= Date.today %>"/>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="form-group">
+      <label>
+        ACTIONS:
+      </label>
+      <button class="btn btn-success btn-block" id="btn-generate">
+        Generate
+      </button>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col">
+    <div id="report-content">
+    </div>
+  </div>
+</div>
+
+<%= render partial: "reports/templates/trial_balance" %>
+<%= javascript_pack_tag "reports/TrialBalance" %>
+
+<script type="text/javascript">
+  var authenticityToken = $('meta[name="csrf-token"]').attr( 'content' );
+
+  $(document).ready(function() {
+    TrialBalance.init({
+      authenticityToken: authenticityToken
+    })
+  });
+</script>

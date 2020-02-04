@@ -1,0 +1,55 @@
+<script id="template-trial-balance" type="x-tmpl-mustache">
+  <h5>
+    As Of: {{as_of}}
+  </h5>
+
+  <table class="table table-bordered table-sm">
+    <thead>
+      <tr>
+        <th>
+          Accounting Code
+        </th>
+        <th class="text-right">
+          Debit
+        </th>
+        <th class="text-right">
+          Credit
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#entries}}
+        <tr>
+          <td>
+            <strong>
+              {{name}}
+            </strong>
+          </td>
+          <td class="text-right">
+            {{dr_amount}}
+          </td>
+          <td class="text-right">
+            {{cr_amount}}
+          </td>
+        </tr>
+      {{/entries}}
+      <tr>
+        <td>
+          <strong>
+            Total
+          </strong>
+        </td>
+        <td class="text-right">
+          <strong>
+            {{total_debit}}
+          </strong>
+        </td>
+        <td class="text-right">
+          <strong>
+            {{total_credit}}
+          </strong>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</script>
