@@ -8,9 +8,17 @@ var Show = (function() {
   var $btnAddJournalEntry;
   var $btnDeleteJournalEntry;
   var $btnConfirmDeleteJournalEntry;
+  var $btnEditParticular;
+  var $btnConfirmParticular;
+  var $btnEditDatePrepared;
+  var $btnConfirmDatePrepared;
   var $modalApprove;
   var $modalDelete;
   var $modalDeleteJournalEntry;
+  var $modalEditParticular;
+  var $modalEditDatePrepared;
+  var $inputParticular;
+  var $inputDatePrepared;
   var $displayAccountingCode;
   var $displayAmount;
   var $selectAccountingCode;
@@ -26,6 +34,7 @@ var Show = (function() {
   var _urlDelete              = "/api/v1/accounting_entries/delete";
   var _urlAddJournalEntry     = "/api/v1/accounting_entries/add_journal_entry";
   var _urlDeleteJournalEntry  = "/api/v1/accounting_entries/delete_journal_entry";
+  var _urlUpdate              = "/api/v1/accounting_entries/update";
 
   var init  = function(options) {
     _authenticityToken  = options.authenticityToken;
@@ -42,18 +51,104 @@ var Show = (function() {
     $btnAddJournalEntry           = $("#btn-add-journal-entry");
     $btnDeleteJournalEntry        = $(".btn-delete-journal-entry");
     $btnConfirmDeleteJournalEntry = $("#btn-confirm-delete-journal-entry");
+    $btnEditParticular            = $("#btn-edit-particular");
+    $btnConfirmParticular         = $("#btn-confirm-particular");
+    $btnEditDatePrepared          = $("#btn-edit-date-prepared");
+    $btnConfirmDatePrepared       = $("#btn-confirm-date-prepared");
     $displayAccountingCode        = $("#display-accounting-code");
     $displayAmount                = $("#display-amount");
     $modalApprove                 = $("#modal-approve");
     $modalDelete                  = $("#modal-delete");
     $modalDeleteJournalEntry      = $("#modal-delete-journal-entry");
+    $modalEditParticular          = $("#modal-edit-particular");
+    $modalEditDatePrepared        = $("#modal-edit-date-prepared");
     $selectAccountingCode         = $("#select-accounting-code");
     $selectPostType               = $("#select-post-type");
     $inputAmount                  = $("#input-amount");
+    $inputParticular              = $("#input-particular");
+    $inputDatePrepared            = $("#input-date-prepared");
     $message                      = $(".message");
   };
 
   var _bindEvents = function() {
+    $btnEditDatePrepared.on("click", function() {
+      $message.html("");
+      $modalEditDatePrepared.modal("show");
+    });
+
+    $btnConfirmDatePrepared.on("click", function() {
+      var datePrepared  = $inputDatePrepared.val();
+
+      $btnConfirmDatePrepared.prop("disabled", true);
+      $inputDatePrepared.prop("disabled", true);
+
+      $message.html("Loading...");
+
+      var data  = {
+        id: _id,
+        authenticity_token: _authenticityToken,
+        accounting_entry: {
+          date_prepared: datePrepared
+        }
+      };
+
+      $.ajax({
+        url: _urlUpdate,
+        method: 'POST',
+        data: data,
+        success: function(response) {
+          $message.html("Success! Redirecting...");
+          window.location.reload();
+        },
+        error: function(response) {
+          alert("error");
+          $message.html("");
+
+          $btnConfirmDatePrepared.prop("disabled", false);
+          $inputDatePrepared.prop("disabled", false);
+        }
+      });
+    });
+
+    $btnEditParticular.on("click", function() {
+      $message.html("");
+      $modalEditParticular.modal("show");
+    });
+
+    $btnConfirmParticular.on("click", function() {
+      var particular  = $inputParticular.val();
+
+      $btnConfirmParticular.prop("disabled", true);
+      $inputParticular.prop("disabled", true);
+
+      $message.html("Loading...");
+
+      var data  = {
+        id: _id,
+        authenticity_token: _authenticityToken,
+        accounting_entry: {
+          particular: particular
+        }
+      };
+
+      $.ajax({
+        url: _urlUpdate,
+        method: 'POST',
+        data: data,
+        success: function(response) {
+          $message.html("Success! Redirecting...");
+          window.location.reload();
+        },
+        error: function(response) {
+          alert("error");
+          $message.html("");
+
+          $btnConfirmParticular.prop("disabled", false);
+          $inputParticular.prop("disabled", false);
+        }
+      });
+    });
+
     $btnDeleteJournalEntry.on("click", function() {
       _journalEntryId     = $(this).data("journal-entry-id");
       var accountingCode  = $(this).data("accounting-code");
@@ -69,7 +164,7 @@ var Show = (function() {
       var data = {
         id: _id,
         journal_entry_id: _journalEntryId,
-        authenticity_token: authenticityToken
+        authenticity_token: _authenticityToken
       }
       
       $btnConfirmDeleteJournalEntry.prop("disabled", true);
@@ -111,7 +206,7 @@ var Show = (function() {
 
       var data  = {
         id: _id,
-        authenticity_token: authenticityToken,
+        authenticity_token: _authenticityToken,
         accounting_code_id: accountingCodeId,
         post_type: postType,
         amount: amount

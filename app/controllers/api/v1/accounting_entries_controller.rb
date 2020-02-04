@@ -1,6 +1,14 @@
 module Api
   module V1
     class AccountingEntriesController < ApplicationController
+      def update
+        accounting_entry  = AccountingEntry.where(id: params[:id]).first
+
+        accounting_entry.update(accounting_entry_update_params)
+
+        render json: { message: "ok" }
+      end
+
       def delete_journal_entry
         accounting_entry  = AccountingEntry.where(id: params[:id]).first
         journal_entry     = JournalEntry.where(id: params[:journal_entry_id]).first
@@ -119,6 +127,13 @@ module Api
 
           render json: { message: "ok", id: accounting_entry.id }
         end
+      end
+
+      private
+
+      # for strong parameters
+      def accounting_entry_update_params
+        params.require(:accounting_entry).permit(:particular, :date_prepared)
       end
     end
   end
