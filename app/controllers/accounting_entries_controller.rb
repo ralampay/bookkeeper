@@ -6,5 +6,9 @@ class AccountingEntriesController < ApplicationController
   def show
     @accounting_entry = AccountingEntry.find(params[:id])
     @accounting_codes = AccountingCode.all
+
+    @payload = {
+      id: @accounting_entry.id
+    }
   end
 end

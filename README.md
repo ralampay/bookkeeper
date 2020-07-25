@@ -1,24 +1,37 @@
-# README
+# BOOKKEEPER
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Changes in single JS
 
-Things you may want to cover:
+1. Add to html head
 
-* Ruby version
+```
+%meta{ name: "parameters", content: "#{{ route: "#{params[:controller]}/#{params[:action]}", payload: (@payload || {})}.to_json}" }
+```
 
-* System dependencies
+2. Have a single application.js to be compiled by webpacker
 
-* Configuration
+Have a `hooks` variable to serve as hash with key representing route and value as an array of js components to load.
 
-* Database creation
+```
+const hooks = {
+  "controller/action": [Component]
+};
+```
 
-* Database initialization
+Single on load listener with pure js.
 
-* How to run the test suite
+```
+document.addEventListener("DOMContentLoaded", () => {
+  const { route, payload }  = JSON.parse($("meta[name='parameters']").attr('content'));
+  const authenticityToken   = $("meta[name='csrf-token']").attr('content');
+  const options             = { authenticityToken, ...payload };
 
-* Services (job queues, cache servers, search engines, etc.)
+  const components  = hooks[route];
 
-* Deployment instructions
-
-* ...
+  if(components) {
+    components.forEach((component) => {
+      component.init(options);
+    });
+  }
+});
+```

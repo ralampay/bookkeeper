@@ -31,14 +31,3 @@
 </div>
 
 <%= render partial: "reports/templates/trial_balance" %>
-<%= javascript_pack_tag "reports/TrialBalance" %>
-
-<script type="text/javascript">
-  var authenticityToken = $('meta[name="csrf-token"]').attr( 'content' );
-
-  $(document).ready(function() {
-    TrialBalance.init({
-      authenticityToken: authenticityToken
-    })
-  });
-</script>

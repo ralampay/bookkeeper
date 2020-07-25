@@ -9,7 +9,7 @@ require("@rails/activestorage").start()
 require("channels")
 
 import 'bootstrap'
-import './src/application.scss'
+import '../stylesheets/application.scss'
 
 window.jQuery = $;
 window.$      = $;
@@ -21,11 +21,38 @@ window.$      = $;
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-$(document).ready(function() {
+import PagesIndex from "../models/pages/Index.js";
+import ReportsTrialBalance from "../models/reports/TrialBalance.js";
+import AccountingEntriesIndex from "../models/accounting_entries/Index.js";
+import AccountingEntriesShow from "../models/accounting_entries/Show.js";
+
+const hooks = {
+  "pages/index":              [PagesIndex],
+  "reports/trial_balance":    [ReportsTrialBalance],
+  "accounting_entries/index": [AccountingEntriesIndex],
+  "accounting_entries/show":  [AccountingEntriesShow]
+};
+
+document.addEventListener("DOMContentLoaded", () => {
   var $btnToggleNav   = $("#btn-toggle-nav");
   var $sidebar        = $("#sidebar");
 
   $btnToggleNav.on("click", function() {
     $sidebar.toggleClass("active");
   });
+
+  const { route, payload }  = JSON.parse($("meta[name='parameters']").attr('content'));
+  const authenticityToken   = $("meta[name='csrf-token']").attr('content');
+  const options             = { authenticityToken, ...payload };
+  const components          = hooks[route];
+
+  console.log("Route: " + route);
+  console.log("Payload:");
+  console.log(payload);
+
+  if(components) {
+    components.forEach((component) => {
+      component.init(options);
+    });
+  }
 });

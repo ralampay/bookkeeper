@@ -45,25 +45,8 @@
   </div>
 </div>
 
-<div id="parameters" data-id="<%= @accounting_entry.id %>">
-</div>
-
 <%= render partial: "accounting_entries/modals/approve" %>
 <%= render partial: "accounting_entries/modals/delete" %>
 <%= render partial: "accounting_entries/modals/delete_journal_entry" %>
 <%= render partial: "accounting_entries/modals/edit_particular" %>
 <%= render partial: "accounting_entries/modals/edit_date_prepared" %>
-<%= javascript_pack_tag "accounting_entries/Show" %>
-
-<script type="text/javascript">
-  var authenticityToken = $('meta[name="csrf-token"]').attr( 'content' );
-  var $parameters       = $("#parameters");
-  var id                = $parameters.data("id");
-
-  $(document).ready(function() {
-    Show.init({
-      authenticityToken: authenticityToken,
-      id: id
-    })
-  });
-</script>
